@@ -7,7 +7,7 @@ public class BusinessException extends Exception implements CommonError {
         super();
         this.commonError = commonError;
     }
-
+    //set error code with custom msg
     public BusinessException(CommonError commonError, String msg) {
         super();
         this.commonError = commonError;

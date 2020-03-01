@@ -2,6 +2,8 @@ package com.mini.store.demo.model;
 
 import lombok.ToString;
 
+import javax.validation.constraints.NotBlank;
+
 @ToString
 public class User {
     /**

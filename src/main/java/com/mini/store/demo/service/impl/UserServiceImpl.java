@@ -10,6 +10,8 @@ import com.mini.store.demo.model.User;
 import com.mini.store.demo.security.Audience;
 import com.mini.store.demo.security.JwtTokenUtil;
 import com.mini.store.demo.service.UserService;
+import com.mini.store.demo.validator.ValidationResult;
+import com.mini.store.demo.validator.ValidatorImpl;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -23,6 +25,8 @@ public class UserServiceImpl implements UserService {
     private PasswordEncoder passwordEncoder;
     @Autowired
     private Audience audience;
+    @Autowired
+    private ValidatorImpl validator;
 
     @Override
     public String signIn(SignInRequest signInRequest) throws Exception {
@@ -40,6 +44,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void signUp(SignUpRequest signUpRequest) throws Exception{
+        ValidationResult validationResult = validator.validate(signUpRequest);
+        if (validationResult.isHasErrors()) {
+            throw new BusinessException(BusinessError.PARAMETER_ERROR, validationResult.getFormattedMsg());
+        }
         String name = signUpRequest.getName();
         User user = getUserByName(name);
         if(user != null ){
