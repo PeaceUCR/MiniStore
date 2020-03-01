@@ -14,3 +14,10 @@ spring:
 #druid datasource
     type: com.alibaba.druid.pool.DruidDataSource
     driver-class-name: com.mysql.jdbc.Driver
+
+audience:
+  clientId: 098f6bcd4621d373cade4e832627b4f6
+  base64Secret: MDk4ZjZiY2Q0NjIxZDM3M2NhZGU0ZTgzMjYyN2I0ZjY=
+  name: restapiuser
+  #30 days
+  expiresSecond: 2592000000

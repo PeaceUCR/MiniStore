@@ -7,17 +7,13 @@ import com.mini.store.demo.dto.SignUpRequest;
 import com.mini.store.demo.error.BusinessError;
 import com.mini.store.demo.error.BusinessException;
 import com.mini.store.demo.model.User;
+import com.mini.store.demo.security.Audience;
+import com.mini.store.demo.security.JwtTokenUtil;
 import com.mini.store.demo.service.UserService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.util.Base64;
-
-import java.io.UnsupportedEncodingException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -25,20 +21,21 @@ public class UserServiceImpl implements UserService {
     private UserMapper userMapper;
     @Autowired
     private PasswordEncoder passwordEncoder;
+    @Autowired
+    private Audience audience;
 
     @Override
-    public void signIn(SignInRequest signInRequest) throws Exception {
+    public String signIn(SignInRequest signInRequest) throws Exception {
         String name = signInRequest.getName();
         String password = signInRequest.getPassword();
         User user = getUserByName(name);
         if(user == null ){
             throw new BusinessException(BusinessError.USER_NOT_EXIST);
         }
-
-
         if(!passwordEncoder.matches(password, user.getEncrptPassword())){
             throw new BusinessException(BusinessError.USER_PASSWORD_ERROR);
         }
+        return JwtTokenUtil.createJWT(Integer.toString(user.getId()), user.getName(), audience);
     }
 
     @Override

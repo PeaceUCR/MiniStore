@@ -9,7 +9,7 @@ public interface UserService {
 
     void signUp(SignUpRequest signUpRequest) throws Exception;
 
-    void signIn(SignInRequest signInRequest) throws Exception;
+    String signIn(SignInRequest signInRequest) throws Exception;
 
     User getUserById(Integer id) throws BusinessException;
 
