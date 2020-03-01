@@ -1,0 +1,16 @@
+server:
+  port: 8443
+
+mybatis:
+  mapper-locations: classpath:mapping/*.xml
+
+
+spring:
+  datasource:
+    name: mini_store
+    url: jdbc:mysql://localhost:3306/mini_store
+    username: root
+    password: password
+#druid datasource
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.jdbc.Driver
