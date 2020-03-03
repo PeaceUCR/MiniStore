@@ -28,7 +28,7 @@ public class ItemServiceImpl {
     private ItemMapper itemMapper;
 
     @Autowired
-    private ItemStockMapper itemStockMapper;
+    private ItemStockServiceImpl itemStockService;
 
     @Transactional
     public void createItem(CreateItemRequest createItemRequest) throws Exception{
@@ -43,7 +43,7 @@ public class ItemServiceImpl {
         ItemStock itemStock = new ItemStock();
         itemStock.setStock(100);
         itemStock.setItemId(itemId);
-        itemStockMapper.insertSelective(itemStock);
+        itemStockService.createItemStock(itemStock);
     }
 
     private Item convertFromCreateItemRequest(CreateItemRequest createItemRequest){
@@ -61,5 +61,9 @@ public class ItemServiceImpl {
         return ofNullable(
                 (String) servletRequestAttributes.getRequest().getAttribute(JwtTokenUtil.ATTR_NAME))
                 .orElseThrow(() -> new BusinessException(BusinessError.NO_UID_IN_REQUEST_ATTR));
+    }
+
+    public Item getItemById() {
+        return null;
     }
 }
