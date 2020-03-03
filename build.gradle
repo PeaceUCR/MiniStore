@@ -45,8 +45,8 @@ configurations {
 }
 
 mybatisGenerator {
-    verbose = true
-    overwrite = true
+    verbose = true //允许移动生成文件
+//    overwrite = true //允许自动覆盖文件
     configFile='src/main/resources/mybatis-generator.xml'
 }
 

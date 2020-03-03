@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS users
+CREATE TABLE IF NOT EXISTS users #mini_store.users
 (
     id              INT unsigned NOT NULL AUTO_INCREMENT, # Unique ID for the record
     encrpt_password VARCHAR(128) NOT NULL,

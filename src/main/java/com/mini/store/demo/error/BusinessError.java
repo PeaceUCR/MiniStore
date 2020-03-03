@@ -7,7 +7,10 @@ public enum BusinessError implements CommonError {
     //USER
     USER_NOT_EXIST(10001, "用户不存在"),
     USER_ALREADY_EXIST(10002, "用户已存在"),
-    USER_PASSWORD_ERROR(10003, "密码错误")
+    USER_PASSWORD_ERROR(10003, "密码错误"),
+    //
+    NOT_A_REQUEST(20001, "不是一个请求"),
+    NO_UID_IN_REQUEST_ATTR(20002, "请求属性没有UID"),
     ;
     private int code;
     private String msg;
