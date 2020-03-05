@@ -17,6 +17,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+import java.util.Date;
+
 import static java.util.Optional.ofNullable;
 
 @Service
@@ -43,6 +45,8 @@ public class ItemServiceImpl {
         ItemStock itemStock = new ItemStock();
         itemStock.setStock(100);
         itemStock.setItemId(itemId);
+        itemStock.setCreateDate(new Date());
+        itemStock.setUpdateDate(new Date());
         itemStockService.createItemStock(itemStock);
     }
 
@@ -52,6 +56,8 @@ public class ItemServiceImpl {
         }
         Item item = new Item();
         BeanUtils.copyProperties(createItemRequest, item);
+        item.setCreateDate(new Date());
+        item.setUpdateDate(new Date());
         return item;
     }
     // get Userid in Request Attr that set by jwt interceptor
@@ -63,7 +69,7 @@ public class ItemServiceImpl {
                 .orElseThrow(() -> new BusinessException(BusinessError.NO_UID_IN_REQUEST_ATTR));
     }
 
-    public Item getItemById() {
-        return null;
+    public Item getItemById(Integer id) {
+        return itemMapper.selectByPrimaryKey(id);
     }
 }
