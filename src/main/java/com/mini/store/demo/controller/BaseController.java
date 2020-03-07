@@ -36,6 +36,7 @@ public class BaseController {
             responseData.put("code", businessException.getCode());
             responseData.put("msg", businessException.getMsg());
         } else {
+            ex.printStackTrace();
             responseData.put("code", BusinessError.UNKNOWN_ERROR.getCode());
             responseData.put("msg", BusinessError.UNKNOWN_ERROR.getMsg());
         }

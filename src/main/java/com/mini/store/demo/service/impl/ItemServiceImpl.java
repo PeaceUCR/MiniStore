@@ -18,6 +18,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import java.util.Date;
+import java.util.List;
 
 import static java.util.Optional.ofNullable;
 
@@ -71,5 +72,9 @@ public class ItemServiceImpl {
 
     public Item getItemById(Integer id) {
         return itemMapper.selectByPrimaryKey(id);
+    }
+
+    public List<Item> listItem() {
+        return itemMapper.listItem();
     }
 }

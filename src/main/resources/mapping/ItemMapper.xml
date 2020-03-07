@@ -37,6 +37,11 @@
     from items
     where id = #{id,jdbcType=INTEGER}
   </select>
+  <select id="listItem" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from items order by sales Desc;
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     <!--
       WARNING - @mbg.generated
