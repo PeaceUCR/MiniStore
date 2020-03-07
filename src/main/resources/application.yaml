@@ -14,6 +14,26 @@ spring:
 #druid datasource
     type: com.alibaba.druid.pool.DruidDataSource
     driver-class-name: com.mysql.jdbc.Driver
+#https://www.jianshu.com/p/3624159ae0bf
+    druid:
+      wall:
+        config:
+          variantCheck: false
+          noneBaseStatementAllow: true
+          commentAllow: true
+          multiStatementAllow: true
+
+#https://docs.spring.io/spring-boot/docs/current/reference/html/appendix-application-properties.html
+  flyway:
+    baseline-on-migrate: true
+#    user: root
+#    password: password
+#    schemas: mini_store
+#    url: jdbc:mysql://localhost:3306/mini_store
+##Locations of migrations scripts.
+##classpath:db/migration means mini-store-api/src/main/resources/db/migration
+#    locations: classpath:db/migration
+#    enabled: true
 
 audience:
   clientId: 098f6bcd4621d373cade4e832627b4f6
@@ -21,3 +41,4 @@ audience:
   name: restapiuser
   #30 days
   expiresSecond: 2592000000
+
