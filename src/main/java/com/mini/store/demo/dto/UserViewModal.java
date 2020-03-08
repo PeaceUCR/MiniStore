@@ -10,8 +10,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserViewModal {
-    private Integer id;
-    private String name;
+    private Integer userId;
+    private String userName;
     private String phone;
     private String wechat_open_id;
 }

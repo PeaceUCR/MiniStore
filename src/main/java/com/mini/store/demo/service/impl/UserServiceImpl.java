@@ -32,7 +32,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public String signIn(SignInRequest signInRequest) throws Exception {
-        String name = signInRequest.getName();
+        String name = signInRequest.getUserName();
         String password = signInRequest.getPassword();
         User user = getUserByName(name);
         if(user == null ){
@@ -41,7 +41,7 @@ public class UserServiceImpl implements UserService {
         if(!passwordEncoder.matches(password, user.getEncrptPassword())){
             throw new BusinessException(BusinessError.USER_PASSWORD_ERROR);
         }
-        return JwtTokenUtil.createJWT(Integer.toString(user.getId()), user.getName(), audience);
+        return JwtTokenUtil.createJWT(Integer.toString(user.getUserId()), user.getUserName(), audience);
     }
 
     @Override
@@ -50,7 +50,7 @@ public class UserServiceImpl implements UserService {
         if (validationResult.isHasErrors()) {
             throw new BusinessException(BusinessError.PARAMETER_ERROR, validationResult.getFormattedMsg());
         }
-        String name = signUpRequest.getName();
+        String name = signUpRequest.getUserName();
         User user = getUserByName(name);
         if(user != null ){
             throw new BusinessException(BusinessError.USER_ALREADY_EXIST);

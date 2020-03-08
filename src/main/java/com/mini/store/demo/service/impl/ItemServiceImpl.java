@@ -42,9 +42,9 @@ public class ItemServiceImpl {
         Item item = convertFromCreateItemRequest(createItemRequest);
         item.setUserId(Integer.parseInt(getContextUserId()));
         itemMapper.insertSelective(item);
-        int itemId = item.getId();
+        int itemId = item.getItemId();
         ItemStock itemStock = new ItemStock();
-        itemStock.setStock(100);
+        itemStock.setItemStock(100);
         itemStock.setItemId(itemId);
         itemStock.setCreateDate(new Date());
         itemStock.setUpdateDate(new Date());
