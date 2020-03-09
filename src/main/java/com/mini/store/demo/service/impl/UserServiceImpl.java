@@ -16,8 +16,12 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import java.util.Date;
+
+import static java.util.Optional.ofNullable;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -86,5 +90,14 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getUserByName(String name) {
         return userMapper.selectByName(name);
+    }
+
+    // get Userid in Request Attr that set by jwt interceptor
+    public String getContextUserId() throws Exception {
+        ServletRequestAttributes servletRequestAttributes = ofNullable((ServletRequestAttributes) RequestContextHolder
+                .getRequestAttributes()).orElseThrow(() -> new BusinessException(BusinessError.NOT_A_REQUEST));
+        return ofNullable(
+                (String) servletRequestAttributes.getRequest().getAttribute(JwtTokenUtil.ATTR_NAME))
+                .orElseThrow(() -> new BusinessException(BusinessError.NO_UID_IN_REQUEST_ATTR));
     }
 }
