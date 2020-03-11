@@ -57,4 +57,8 @@ public class OrderServiceImpl {
         order.setUpdateDate(new Date());
         return order;
     }
+
+    public Order getOrderById(Integer orderId) {
+        return orderMapper.selectByPrimaryKey(orderId);
+    }
 }
