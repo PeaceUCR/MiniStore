@@ -1,0 +1,1 @@
+ALTER TABLE users MODIFY COLUMN user_avatar_url VARCHAR(200);

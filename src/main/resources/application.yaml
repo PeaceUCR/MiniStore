@@ -1,5 +1,5 @@
 server:
-  port: 8443
+  port: 8080
 
 mybatis:
   mapper-locations: classpath:mapping/*.xml
@@ -42,3 +42,8 @@ audience:
   #30 days
   expiresSecond: 2592000000
 
+wx:
+  miniapp:
+    appid: wxda1f6a54b87f0ad8
+    secret: 81f316b18aa7954ac53eab12b338f43b
+    msgDataFormat: JSON

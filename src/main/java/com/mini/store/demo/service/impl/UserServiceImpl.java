@@ -1,9 +1,12 @@
 package com.mini.store.demo.service.impl;
 
+import cn.binarywang.wx.miniapp.bean.WxMaJscode2SessionResult;
+import cn.binarywang.wx.miniapp.bean.WxMaUserInfo;
 import com.alibaba.druid.util.StringUtils;
 import com.mini.store.demo.dao.UserMapper;
 import com.mini.store.demo.dto.SignInRequest;
 import com.mini.store.demo.dto.SignUpRequest;
+import com.mini.store.demo.dto.WechatLogInRequest;
 import com.mini.store.demo.error.BusinessError;
 import com.mini.store.demo.error.BusinessException;
 import com.mini.store.demo.model.User;
@@ -33,6 +36,8 @@ public class UserServiceImpl implements UserService {
     private Audience audience;
     @Autowired
     private ValidatorImpl validator;
+    @Autowired
+    private WxServiceImpl wxService;
 
     @Override
     public String signIn(SignInRequest signInRequest) throws Exception {
@@ -90,6 +95,31 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getUserByName(String name) {
         return userMapper.selectByName(name);
+    }
+
+    @Override
+    public String wechatLogin(WechatLogInRequest wechatLogInRequest) throws Exception {
+        WxMaJscode2SessionResult sessionResult = wxService.getSessionInfo(wechatLogInRequest.getCode());
+        WxMaUserInfo wxMaUserInfo = wxService.getWxUserInfo(sessionResult.getSessionKey(), wechatLogInRequest);
+        String openId = sessionResult.getOpenid();
+        User user = userMapper.selectByOpenId(openId);
+        if(user == null) {
+            user = new User();
+            user.setUserName(wxMaUserInfo.getNickName());
+            user.setUserAvatarUrl(wxMaUserInfo.getAvatarUrl());
+            user.setWechatOpenId(openId);
+            user.setEncrptPassword(passwordEncoder.encode("password"));// password for wechat login
+            user.setPhone("");//default phone empty
+            user.setCreateDate(new Date());
+            user.setUpdateDate(new Date());
+            userMapper.insertSelective(user);
+        } else {
+            user.setUserName(wxMaUserInfo.getNickName());
+            user.setUserAvatarUrl(wxMaUserInfo.getAvatarUrl());
+            user.setUpdateDate(new Date());
+            userMapper.updateByPrimaryKeySelective(user);
+        }
+        return JwtTokenUtil.createJWT(Integer.toString(user.getUserId()), user.getUserName(), audience);
     }
 
     // get Userid in Request Attr that set by jwt interceptor

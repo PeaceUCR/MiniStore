@@ -2,6 +2,7 @@ package com.mini.store.demo.controller;
 
 import com.mini.store.demo.dto.SignInRequest;
 import com.mini.store.demo.dto.SignUpRequest;
+import com.mini.store.demo.dto.WechatLogInRequest;
 import com.mini.store.demo.error.BusinessError;
 import com.mini.store.demo.error.BusinessException;
 import com.mini.store.demo.model.User;
@@ -28,6 +29,12 @@ public class UserController extends BaseController {
     @PostMapping("/signin")
     public String signIn(@RequestBody SignInRequest signInRequest) throws Exception{
         return userServiceImpl.signIn(signInRequest);
+    }
+
+    @JwtIgnore
+    @PostMapping("/wechatLogin")
+    public String wechatLogin(@RequestBody WechatLogInRequest wechatLogInRequest) throws Exception{
+        return userServiceImpl.wechatLogin(wechatLogInRequest);
     }
 
     @GetMapping("/hello")
