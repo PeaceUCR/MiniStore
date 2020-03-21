@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class ItemController extends BaseController {
@@ -23,9 +24,22 @@ public class ItemController extends BaseController {
         return itemService.getItemById(id);
     }
 
+//    @GetMapping("/items")
+//    public List<Item> listItem(){
+//        return itemService.listItem();
+//    }
+
     @GetMapping("/items")
-    public List<Item> listItem(){
-        return itemService.listItem();
+    public List<Item> listItem(@RequestParam(name = "category", required = false) String category, @RequestParam(name = "itemName", required = false) String itemName, @RequestParam(name = "limit", required = false) Integer limit){
+        if(category == null && itemName == null) {
+            return itemService.listItem(limit);
+        }
+
+        if(itemName != null) {
+            return itemService.listItemByName(itemName);
+        }
+
+        return itemService.listItemByCategory(category);
     }
 
 }

@@ -225,6 +225,42 @@
     <include refid="Base_Column_List" />
     from items, item_stock
     where items.item_id = item_stock.item_id
+    order by items.item_sales Desc
+  </select>
+<!--  https://stackoverflow.com/questions/13639503/search-condition-mysql-if-name-name-limit-1-limit-5-->
+<!--  impossible to have if in limit-->
+  <select id="listItemWithLimit" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select
+    <include refid="Base_Column_List" />
+    from items, item_stock
+    where items.item_id = item_stock.item_id
+    order by items.item_sales Desc
+    LIMIT #{limit,jdbcType=INTEGER};
+  </select>
+  <select id="listItemByCategory" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select
+    <include refid="Base_Column_List" />
+    from items, item_stock
+    where items.item_id = item_stock.item_id
+    and items.category = #{category,jdbcType=VARCHAR}
+    order by items.item_sales Desc;
+  </select>
+
+  <!--
+    // WHERE CustomerName LIKE '%or%'	Finds any values that have "or" in any position
+    select
+    items.item_id, items.item_name, items.item_price, items.item_price_unit, items.item_description, items.item_sales, items.item_img_url,
+    items.user_id, items.create_date, items.update_date, items.category, item_stock.item_stock
+    from items, item_stock
+    where items.item_name like concat(concat('%', 'app'),'%')
+    and items.item_id= item_stock.item_id
+   -->
+  <select id="listItemByName" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select
+    <include refid="Base_Column_List" />
+    from items, item_stock
+    where items.item_id = item_stock.item_id
+    and items.item_name like concat(concat('%', #{itemName,jdbcType=VARCHAR}),'%')
     order by items.item_sales Desc;
   </select>
 </mapper>

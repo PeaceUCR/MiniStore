@@ -63,7 +63,18 @@ public class ItemServiceImpl {
         return itemMapper.selectByPrimaryKey(id);
     }
 
-    public List<Item> listItem() {
-        return itemMapper.listItem();
+    public List<Item> listItem(Integer limit) {
+        if(limit == null) {
+            return itemMapper.listItem();
+        }
+        return  itemMapper.listItemWithLimit(limit);
+    }
+
+    public List<Item> listItemByCategory(String category) {
+        return itemMapper.listItemByCategory(category);
+    }
+
+    public List<Item> listItemByName(String itemName) {
+        return itemMapper.listItemByName(itemName);
     }
 }
