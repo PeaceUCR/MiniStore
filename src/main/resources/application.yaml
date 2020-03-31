@@ -44,8 +44,8 @@ audience:
 
 wx:
   miniapp:
-    appid: wxda1f6a54b87f0ad8
-    secret: 81f316b18aa7954ac53eab12b338f43b
+    appid: wx5c00a4bf5e176be4
+    secret: 88f59d8eb532d115d6b28b86fea81926
     msgDataFormat: JSON
 
 

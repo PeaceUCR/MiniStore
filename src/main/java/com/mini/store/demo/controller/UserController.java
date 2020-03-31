@@ -2,6 +2,7 @@ package com.mini.store.demo.controller;
 
 import com.mini.store.demo.dto.SignInRequest;
 import com.mini.store.demo.dto.SignUpRequest;
+import com.mini.store.demo.dto.UserViewModal;
 import com.mini.store.demo.dto.WechatLogInRequest;
 import com.mini.store.demo.error.BusinessError;
 import com.mini.store.demo.error.BusinessException;
@@ -37,9 +38,19 @@ public class UserController extends BaseController {
         return userServiceImpl.wechatLogin(wechatLogInRequest);
     }
 
+
+    @GetMapping("/current")
+    public UserViewModal getCurrentUSer() throws Exception{
+        User user = userServiceImpl.getCurrentUser();
+        return UserViewModal.builder()
+                .userName(user.getUserName())
+                .userAvatarUrl(user.getUserAvatarUrl())
+                .phone(user.getPhone())
+                .build();
+    }
+
     @GetMapping("/hello")
     public String hello() {
-
         return "hello";
     }
 }

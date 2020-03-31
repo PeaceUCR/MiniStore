@@ -14,4 +14,5 @@ public class UserViewModal {
     private String userName;
     private String phone;
     private String wechat_open_id;
+    private String userAvatarUrl;
 }

@@ -122,6 +122,10 @@ public class UserServiceImpl implements UserService {
         return JwtTokenUtil.createJWT(Integer.toString(user.getUserId()), user.getUserName(), audience);
     }
 
+    public User getCurrentUser() throws Exception {
+        Integer userId = Integer.parseInt(getContextUserId());
+        return getUserById(userId);
+    }
     // get Userid in Request Attr that set by jwt interceptor
     public String getContextUserId() throws Exception {
         ServletRequestAttributes servletRequestAttributes = ofNullable((ServletRequestAttributes) RequestContextHolder
