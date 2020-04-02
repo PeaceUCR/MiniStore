@@ -6,6 +6,8 @@ import com.mini.store.demo.service.impl.ItemServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -42,4 +44,9 @@ public class ItemController extends BaseController {
         return itemService.listItemByCategory(category);
     }
 
+    @GetMapping("/ids")
+    public List<Item> listItemByIds(){
+        Integer[] ids = {1, 2, 3};
+        return itemService.listItemByIds(Arrays.asList(ids));
+    }
 }

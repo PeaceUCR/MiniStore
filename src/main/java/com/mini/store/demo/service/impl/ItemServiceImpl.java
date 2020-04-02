@@ -77,4 +77,8 @@ public class ItemServiceImpl {
     public List<Item> listItemByName(String itemName) {
         return itemMapper.listItemByName(itemName);
     }
+
+    public List<Item> listItemByIds(List<Integer> ids) {
+        return itemMapper.listItemByIds(ids);
+    }
 }

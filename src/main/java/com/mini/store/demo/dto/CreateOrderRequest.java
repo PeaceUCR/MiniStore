@@ -1,5 +1,6 @@
 package com.mini.store.demo.dto;
 
+import com.mini.store.demo.model.Delivery;
 import lombok.Data;
 
 import javax.validation.constraints.NotEmpty;
@@ -12,4 +13,6 @@ public class CreateOrderRequest {
     private Long totalAmount;
     @NotEmpty(message = "订单商品列表不能为空")
     private List<ItemInOrder> itemList;
+
+    private Delivery delivery;
 }

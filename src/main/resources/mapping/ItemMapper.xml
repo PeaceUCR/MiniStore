@@ -263,4 +263,14 @@
     and items.item_name like concat(concat('%', #{itemName,jdbcType=VARCHAR}),'%')
     order by items.item_sales Desc;
   </select>
+  <select id="listItemByIds" resultMap="BaseResultMap" parameterType="java.util.List">
+    select
+    <include refid="Base_Column_List" />
+    from items, item_stock
+    where items.item_id = item_stock.item_id
+    and items.item_id in
+    <foreach collection="list" item="id" index="index" open="(" close=")" separator=",">
+      #{id}
+    </foreach>
+  </select>
 </mapper>

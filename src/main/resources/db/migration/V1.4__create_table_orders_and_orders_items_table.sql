@@ -17,6 +17,6 @@ CREATE TABLE IF NOT EXISTS mini_store.orders_items
     quantity        INT unsigned NOT NULL,
     create_date     DATETIME NOT NULL,
     update_date     DATETIME NOT NULL,
-    FOREIGN KEY (order_id) REFERENCES orders(order_id),
+    FOREIGN KEY (order_id) REFERENCES orders(order_id) ON DELETE CASCADE,
     FOREIGN KEY (item_id) REFERENCES items(item_id)
 );
