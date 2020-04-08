@@ -40,7 +40,8 @@ public class OrderServiceImpl {
         Order order = convertFromCreateItemRequest(createOrderRequest);
         List<ItemInOrder> itemInOrderList = createOrderRequest.getItemList();
         order.setUserId(Integer.parseInt(userService.getContextUserId()));
-        order.setDiscount(new Long(0));
+        order.setDiscount(new Long(0L));
+        order.setStatus("待支付");
         orderMapper.insert(order);
         Integer orderId = order.getOrderId();
 
@@ -95,7 +96,7 @@ public class OrderServiceImpl {
                     .collect(Collectors.toList());
             return OrderWithItem.builder().order(order).items(orderItems).build();
         }).collect(Collectors.toList());
-        System.out.println(orderWithItems);
+
         return orderWithItems;
 
     }

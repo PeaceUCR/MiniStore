@@ -14,5 +14,6 @@ public class CreateItemRequest {
     private String itemPriceUnit;
     @NotBlank(message = "描述不能为空")
     private String itemDescription;
-    private String imgUrl;
+    private String itemImgUrl;
+    private String category;
 }
