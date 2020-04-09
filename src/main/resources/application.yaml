@@ -22,8 +22,14 @@ spring:
           noneBaseStatementAllow: true
           commentAllow: true
           multiStatementAllow: true
+#热部署配置enable
+  devtools:
+    restart:
+      enabled: true
+      #监听目录
+      additional-paths: src/main/java
 
-#https://docs.spring.io/spring-boot/docs/current/reference/html/appendix-application-properties.html
+  #https://docs.spring.io/spring-boot/docs/current/reference/html/appendix-application-properties.html
   flyway:
     baseline-on-migrate: true
 #    user: root
@@ -52,3 +58,7 @@ wx:
 logging:
   level:
     com: debug
+  file:
+    name: 'app.log'
+
+

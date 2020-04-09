@@ -10,10 +10,11 @@ import com.mini.store.demo.model.User;
 import com.mini.store.demo.response.CommonReturnType;
 import com.mini.store.demo.security.JwtIgnore;
 import com.mini.store.demo.service.impl.UserServiceImpl;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-
+@Slf4j
 @RestController
 @RequestMapping("/user")
 public class UserController extends BaseController {
@@ -40,7 +41,7 @@ public class UserController extends BaseController {
 
 
     @GetMapping("/current")
-    public UserViewModal getCurrentUSer() throws Exception{
+    public UserViewModal getCurrentUser() throws Exception{
         User user = userServiceImpl.getCurrentUser();
         return UserViewModal.builder()
                 .userName(user.getUserName())
@@ -49,8 +50,14 @@ public class UserController extends BaseController {
                 .build();
     }
 
-    @GetMapping("/hello")
+    @JwtIgnore
+    @GetMapping("/log")
     public String hello() {
-        return "hello";
+        log.trace("A TRACE Message");
+        log.debug("A DEBUG Message");
+        log.info("An INFO Message");
+        log.warn("A WARN Message");
+        log.error("An ERROR msg");
+        return "hello 2020";
     }
 }
